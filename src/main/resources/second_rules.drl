@@ -1,0 +1,30 @@
+package secondrule
+
+rule "No items in order - set all values to ZERO"
+	when
+		$o: Order( $subTotal: subTotal, $salesTax:salesTax,  items.size() == 0 )
+	then
+		System.out.println("We have an empty order - setting totals to ZERO");
+		// causes endless rule-firing
+		//modify ($o) { setSalesTax( 0.0 ) };
+		//modify ($o) { setSubTotal( 0.0 ) };
+		$o.setSalesTax( 0.0 );
+		$o.setSubTotal( 0.0 );
+end
+
+rule "order has stuff in it - recalculate totals"
+	when
+		$o: Order( $items: items, $size: items.size() > 0 )
+	then
+		System.out.println("Order has items in it. -> " + $size);
+		Double newSubTtl = 0.0;
+		Double newSalesTax = 0.0;
+		for (Object ii : $items) {
+			System.out.println(ii);
+			newSubTtl += ((Item)ii).getPrice();
+		}
+		// not using modify because that re-fires rules - e.g. endless loop
+		$o.setSubTotal( newSubTtl );
+		$o.setSalesTax( newSubTtl * .10 ); 
+end
+		

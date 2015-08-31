@@ -1,0 +1,10 @@
+package firstrule
+
+rule "robb"
+	when
+		$p: Person($name: name == "robb") 
+	then
+		System.out.println("Firing the 'robb' rule");
+		modify ($p) { setName( $name.toUpperCase() ) };
+		System.out.println("Upper-cased that crapage, yo");		
+end

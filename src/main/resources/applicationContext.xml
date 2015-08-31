@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:drools="http://drools.org/schema/drools-spring" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://drools.org/schema/drools-spring http://drools.org/schema/drools-spring-1.7.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+	<!-- Knowledge Base -->
+	<drools:kbase id="secondRuleKnowledgeBase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:second_rules.drl"></drools:resource>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession kbase="secondRuleKnowledgeBase" type="stateless"
+		id="secondRuleSession" />
+
+	<bean id="orderProcessor" class="secondrule.OrderProcessor">
+		<constructor-arg ref="secondRuleSession" />
+	</bean>
+</beans>

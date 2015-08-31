@@ -25,4 +25,18 @@
 	<bean id="orderProcessor" class="secondrule.OrderProcessor">
 		<constructor-arg ref="secondRuleSession" />
 	</bean>
+
+
+
+	<!-- Knowledge Base 3rd rule (spreadsheet) -->
+	<drools:kbase id="thirdRuleKnowledgeBase">
+		<drools:resources>
+			<drools:resource type="DTABLE" source="classpath:third_rules.xls"></drools:resource>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession kbase="thirdRuleKnowledgeBase" type="stateless"
+		id="thirdRuleSession" />
+
+
 </beans>

@@ -72,16 +72,10 @@ dependencies {
 	compile "org.springframework:spring-tx:${spring_core_version}"
 	compile "org.springframework:spring-test:${spring_core_version}"
 	compile "org.springframework:spring-jdbc:${spring_core_version}"
-
-	
-	
 	
 	providedCompile 'javax.servlet:servlet-api:2.5'
 	testCompile 'junit:junit:4.11'
 }
-
-
-
 
 
 task wrapper(type: Wrapper) {

@@ -9,6 +9,7 @@ apply plugin: 'jetty'
 sourceCompatibility=1.7
 targetCompatibility=1.7
 
+// haven't gotten around to doing any web stuff with this project yet, but leaving this here for now.
 //[jettyRun, jettyRunWar]*.jettyEnvXml = file('src/test/resources/jetty-config.xml')
 jettyRun {
 	//jettyEnvXml = file('src/test/resources/jetty-config.xml')
@@ -25,27 +26,9 @@ project.ext {
 }
 
 repositories {
-	//mavenCentral()
-	flatDir{ dirs 'lib' }
-
-	maven { url 'http://repository.paychex.com:8081/artifactory/paychex-local' }
-	maven { url 'http://repository.paychex.com:8081/artifactory/prerelease' }
-	maven { url 'http://repository.paychex.com:8081/artifactory/external' }
-	maven { url 'http://repository.paychex.com:8081/artifactory/maven' }
-	ivy {
-		url 'http://repository.paychex.com:8081/artifactory/maven'
-		layout "pattern", {
-			artifact "[organisation]/[module]/[revision]/[type]/[artifact]-[revision](-[classifier]).[ext]"
-			ivy "[organisation]/[module]/[revision]/ivy-[revision](-[classifier]).xml"
-		}
-	}
+	mavenCentral()
 }
 
-
-/* Add or remove dependencies as needed. This is a huge set of dependencies 
- * copied from Paycard, so chances are you won't need most of this. If you 
- * don't know what it is, you probably don't need it. 
- */
 dependencies {
 	compile 'org.apache.commons:commons-lang3:3.0.1'
 	compile 'org.codehaus.groovy:groovy-all:2.3.6'
@@ -79,6 +62,5 @@ dependencies {
 
 
 task wrapper(type: Wrapper) {
-	distributionUrl='http://repository.paychex.com:8081/artifactory/external/gradle/gradle/2.2.1/gradle-2.2.1-bin.zip'
 	gradleVersion = '2.2.1'
  }
